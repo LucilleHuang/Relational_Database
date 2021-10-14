@@ -134,21 +134,46 @@ int main(const int argc, const char* argv[]) {
   // lack of options.
 
   const char* baseQuery = "select schema_name from information_schema.schemata";
+  const char* likeClause = " where schema_name like ";
+  const char* notLikeClause = " where schema_name not like ";
   const char* orderingClause = " order by schema_name;";
 
   // THE queryLen WILL NEED TO BE DIFFERENT THAN THAT SHOWN BELOW
-  int queryLen = strlen(baseQuery) +
-                 strlen(orderingClause) +
+  int queryLen = strlen(baseQuery);
+  int patternLen = strlen("\"\"");
+  if (argc == 3) {
+    patternLen += strlen(argv[2]);
+    queryLen += patternLen;
+    if (strncmp("-l", argv[1], 2) == 0 ) {
+      queryLen += strlen(likeClause);
+    }
+    if (strncmp("-n", argv[1], 2) == 0 ) {
+      queryLen += strlen(notLikeClause);
+    }
+  }
+  queryLen += strlen(orderingClause) +
     1;                        // Needed for null terminator 
   
   // Allocate the query buffer
   char queryBuffer[queryLen];
+  char qryPattern[patternLen];
 
   // Copy the query into the query buffer
   strcpy(queryBuffer, baseQuery);
 
   // YOUR CODE HERE TO DEAL WITH THE -l AND -n CASES
-  
+  if (argc == 3) {
+    strcpy(qryPattern, "\"");
+    strcpy(qryPattern + strlen(qryPattern), argv[2]);
+    strcpy(qryPattern + strlen(qryPattern), "\"");
+    if (strncmp("-l", argv[1], 2) == 0 ) {
+      strcpy(queryBuffer + strlen(queryBuffer), likeClause);
+    }
+    if (strncmp("-n", argv[1], 2) == 0 ) {
+      strcpy(queryBuffer + strlen(queryBuffer), notLikeClause);
+    }
+    strcpy(queryBuffer + strlen(queryBuffer), qryPattern);
+  }
   strcpy(queryBuffer + strlen(queryBuffer), orderingClause);
 
   // Handy debugging statement to ensure I have a good query
