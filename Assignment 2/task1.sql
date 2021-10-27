@@ -10,7 +10,8 @@ FROM GamePlays;
 
 -- Q3 start
 WITH PbT AS 
-	(SELECT COUNT(playID) AS numPlays
+	(SELECT playType,
+			COUNT(playID) AS numPlays
 		FROM GamePlays
 		GROUP BY playType)
 SELECT playType
@@ -22,7 +23,8 @@ SELECT playType
 
 --Q4 start
 WITH PbT AS 
-	(SELECT COUNT(playID) AS numPlays
+	(SELECT playType,
+			COUNT(playID) AS numPlays
 		FROM GamePlays INNER JOIN Game USING(gameID)
 		WHERE gameType = 'P'
 		GROUP BY playType)
