@@ -1,11 +1,16 @@
 -- create the tables BetterGamePlays & BetterGameGoals
-CREATE TABLE IF NOT EXISTS BetterGamePlays LIKE GamePlays;
-CREATE TABLE IF NOT EXISTS BetterGameGoals LIKE GameGoals;
+CREATE TABLE IF NOT EXISTS BetterGamePlays LIKE GamePlays; --contain both playID and gameID
+CREATE TABLE IF NOT EXISTS BetterGameGoals LIKE GameGoals; --contain only playID
 
 -- Modify these tables by using “ALTER TABLE ... ADD COLUMN”
 -- to add the attributes
 -- – gameID (if necessary)
 -- – playNumber
+ALTER TABLE GamePlays (
+ADD COLUMN playNumber  column_definition
+        [FIRST | AFTER col_name]
+  | ADD [COLUMN] (col_name column_definition,...)
+
 ALTER TABLE tbl_name (
 ADD [COLUMN] col_name column_definition
         [FIRST | AFTER col_name]
