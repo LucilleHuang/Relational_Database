@@ -2,8 +2,8 @@ DROP TABLE IF EXISTS BetterGameGoals;
 DROP TABLE IF EXISTS BetterGamePlays;
 
 -- create the tables BetterGamePlays & BetterGameGoals
-CREATE TABLE BetterGamePlays LIKE GamePlays; --contain both playID and gameID
-CREATE TABLE BetterGameGoals LIKE GameGoals; --contain only playID
+CREATE TABLE BetterGamePlays LIKE GamePlays;
+CREATE TABLE BetterGameGoals LIKE GameGoals;
 
 -- Modify these tables to add the attributes gameID (if necessary), playNumber
 ALTER TABLE BetterGamePlays ADD COLUMN playNumber DECIMAL(3) AFTER gameID;
