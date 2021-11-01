@@ -48,4 +48,33 @@ INSERT INTO BetterGameGoals
 DROP TABLE IF EXISTS GameGoals;
 DROP TABLE IF EXISTS GamePlays;
 
--- • Create views GamePlays and GameGoals, based on BetterGamePlays and BetterGameGoals, that have an identical schema to the original GamePlays and GameGoals tables
+-- Create views GamePlays and GameGoals, based on BetterGamePlays and BetterGameGoals, that have an identical schema to the original GamePlays and GameGoals tables
+CREATE VIEW GamePlays AS (
+  SELECT 
+    CONCAT_WS('_', CAST(gameID AS char(10)), CAST(playNumber AS char(3))) AS playID,
+    gameID,
+    teamIDfor,
+    teamIDagainst,
+    playType,
+    secondaryType,
+    x,
+    y,
+    period,
+    periodType,
+    periodTime,
+    periodTimeRemaining,
+    dateTime,
+    goalsAway,
+    goalsHome,
+    description
+  FROM BetterGamePlays
+);
+
+CREATE VIEW GameGoals AS (
+  SELECT
+    CONCAT_WS('_', CAST(gameID AS char(10)), CAST(playNumber AS char(3))) AS playID,
+    strength,
+    gameWinningGoal,
+    emptyNet
+  FROM BetterGameGoals
+);
