@@ -1,0 +1,19 @@
+• rewrite and benefits
+The query is rewriten in a way where all the joins of the outer query in the original query are replaced with selecting using where clause. The benefit of doing this is that instead of joining the three big tables together, only one row needs to selected from each table in the sub queries.
+
+• The average performance of the new query in each of the four databases
+Plain, 8.63
+PK, 2.68
+FK, 2.58
+Index, 0.70
+
+
+• What caused the performance change between the Plain and PK database executions?
+Since the Plain database does not have primary keys, MYSQL would add a attributes to each table as the primary key which slows down the execution of the query and increses the size of the table and changes the order of the execution plan. The PK database is a lot faster because the joins are all done on primary keys.
+
+• What caused the performance change between the PK and FK database executions?
+The execution plan of PK and FK databases are exactly the same as each other.
+
+• What indexes you added, why you chose those indexes, and how they changed the execution plan and improved the query performance?
+Index is added on TeamInfo.name
+This index is chosen because the subquery named FirstGoalTime is filtering on this column. In the execution plan, there's a full table scan on TeamInfo. Therefore, adding an index on this column makes it a covered query. Only the name column needs to be indexed becuase the join is on teamID which is the primary key and would be available at the leaf nodes.

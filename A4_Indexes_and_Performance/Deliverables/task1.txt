@@ -1,0 +1,32 @@
+--"analyze" commands executed:
+
+ANALYZE
+    TABLE GamePlays
+    UPDATE HISTOGRAM ON playType;
+	
+ANALYZE
+    TABLE GamePlaysPlayers
+    UPDATE HISTOGRAM ON playerRole;
+
+ANALYZE
+    TABLE TeamInfo
+    UPDATE HISTOGRAM ON name;
+
+ANALYZE
+    TABLE Game
+    UPDATE HISTOGRAM ON season;
+
+
+--After running the "analyze" commands, the estimated percentage of rows that would be selected in the filtered column for table GamePlaysPlayers, Game, and GamePlays has changed. The estimated number of rows for table GamePlays, GamePlaysPlayers and Game has changed. These updates of statistics lead to the changes in the order of the execution plan. The original plan starts with filtering GamePlays with the where clause, then GamePlaysPlayers, and PlayerInfo last in the outer query. After running the "analyze" commands, the execution plan now filters the GamePlaysPlayers table first, PlayerInfo second and GamePlays last. For the subquery, the origianl plan starts with filtering the Game table then GamePlays and TeamInfo last. After running "analyze", the plan now starts with filtering the TeamInfo table, then Game and deals with GamePlays last.
+
+--The resulting execution plan can be found below.
++----+-------------+------------------+------------+--------+-------------------+---------+---------+-----------------------------------------------------------------------------------+---------+----------+--------------------------------------------+
+| id | select_type | table            | partitions | type   | possible_keys     | key     | key_len | ref                                                                               | rows    | filtered | Extra                                      |
++----+-------------+------------------+------------+--------+-------------------+---------+---------+-----------------------------------------------------------------------------------+---------+----------+--------------------------------------------+
+|  1 | PRIMARY     | GamePlaysPlayers | NULL       | ALL    | PRIMARY,playerID  | NULL    | NULL    | NULL                                                                              | 5922062 |     2.04 | Using where                                |
+|  1 | PRIMARY     | PlayerInfo       | NULL       | eq_ref | PRIMARY           | PRIMARY | 4       | db356_j349huan.GamePlaysPlayers.playerID                                          |       1 |   100.00 | NULL                                       |
+|  1 | PRIMARY     | GamePlays        | NULL       | eq_ref | PRIMARY           | PRIMARY | 9       | db356_j349huan.GamePlaysPlayers.gameID,db356_j349huan.GamePlaysPlayers.playNumber |       1 |    10.00 | Using where                                |
+|  2 | SUBQUERY    | TeamInfo         | NULL       | ALL    | PRIMARY           | NULL    | NULL    | NULL                                                                              |      33 |     3.03 | Using where                                |
+|  2 | SUBQUERY    | Game             | NULL       | ALL    | PRIMARY           | NULL    | NULL    | NULL                                                                              |   23463 |     5.12 | Using where; Using join buffer (hash join) |
+|  2 | SUBQUERY    | GamePlays        | NULL       | ref    | PRIMARY,teamIDfor | PRIMARY | 5       | db356_j349huan.Game.gameID                                                        |      84 |     0.10 | Using where                                |
++----+-------------+------------------+------------+--------+-------------------+---------+---------+-----------------------------------------------------------------------------------+---------+----------+--------------------------------------------+

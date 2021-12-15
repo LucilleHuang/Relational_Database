@@ -1,0 +1,101 @@
+describe GamePlays;
++---------------------+---------------+------+-----+---------+-------+
+| Field               | Type          | Null | Key | Default | Extra |
++---------------------+---------------+------+-----+---------+-------+
+| gameID              | decimal(10,0) | NO   | PRI | NULL    |       |
+| playNumber          | int           | NO   | PRI | NULL    |       |
+| teamIDfor           | int           | YES  | MUL | NULL    |       |
+| teamIDagainst       | int           | YES  | MUL | NULL    |       |
+| playType            | varchar(25)   | YES  |     | NULL    |       |
+| secondaryType       | varchar(40)   | YES  |     | NULL    |       |
+| x                   | int           | YES  |     | NULL    |       |
+| y                   | int           | YES  |     | NULL    |       |
+| period              | decimal(1,0)  | YES  |     | NULL    |       |
+| periodType          | char(8)       | YES  |     | NULL    |       |
+| periodTime          | int           | YES  |     | NULL    |       |
+| periodTimeRemaining | int           | YES  |     | NULL    |       |
+| dateTime            | datetime      | YES  |     | NULL    |       |
+| goalsAway           | int           | YES  |     | NULL    |       |
+| goalsHome           | int           | YES  |     | NULL    |       |
+| description         | varchar(255)  | YES  |     | NULL    |       |
++---------------------+---------------+------+-----+---------+-------+
+
+describe GamePenalties;
++-----------------+---------------+------+-----+---------+-------+
+| Field           | Type          | Null | Key | Default | Extra |
++-----------------+---------------+------+-----+---------+-------+
+| gameID          | decimal(10,0) | NO   | PRI | NULL    |       |
+| playNumber      | int           | NO   | PRI | NULL    |       |
+| penaltySeverity | char(15)      | YES  |     | NULL    |       |
+| penaltyMinutes  | decimal(2,0)  | YES  |     | NULL    |       |
++-----------------+---------------+------+-----+---------+-------+
+
+describe GameGoals;
++-----------------+---------------+------+-----+---------+-------+
+| Field           | Type          | Null | Key | Default | Extra |
++-----------------+---------------+------+-----+---------+-------+
+| gameID          | decimal(10,0) | NO   | PRI | NULL    |       |
+| playNumber      | int           | NO   | PRI | NULL    |       |
+| strength        | char(12)      | YES  |     | NULL    |       |
+| gameWinningGoal | tinyint(1)    | YES  |     | NULL    |       |
+| emptyNet        | tinyint(1)    | YES  |     | NULL    |       |
++-----------------+---------------+------+-----+---------+-------+
+
+describe Game;
++---------------------+---------------+------+-----+---------+-------+
+| Field               | Type          | Null | Key | Default | Extra |
++---------------------+---------------+------+-----+---------+-------+
+| gameID              | decimal(10,0) | NO   | PRI | NULL    |       |
+| season              | decimal(8,0)  | YES  |     | NULL    |       |
+| gameType            | char(1)       | YES  |     | NULL    |       |
+| dateTimeGMT         | datetime      | YES  |     | NULL    |       |
+| awayTeamID          | int           | YES  |     | NULL    |       |
+| homeTeamID          | int           | YES  |     | NULL    |       |
+| awayGoals           | int           | YES  |     | NULL    |       |
+| homeGoals           | int           | YES  |     | NULL    |       |
+| outcome             | char(12)      | YES  |     | NULL    |       |
+| homeRinkSideStart   | char(50)      | YES  |     | NULL    |       |
+| venue               | varchar(64)   | YES  |     | NULL    |       |
+| venueTimeZoneID     | char(20)      | YES  |     | NULL    |       |
+| venueTimeZoneOffset | char(50)      | YES  |     | NULL    |       |
+| venueTimeZoneTZ     | char(3)       | NO   |     | NULL    |       |
++---------------------+---------------+------+-----+---------+-------+
+
+describe TeamInfo;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| teamID       | int      | NO   | PRI | NULL    |       |
+| franchiseID  | int      | NO   |     | NULL    |       |
+| city         | char(15) | NO   |     | NULL    |       |
+| name         | char(15) | NO   |     | NULL    |       |
+| abbreviation | char(3)  | NO   | UNI | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+
+describe PlayerInfo;
++--------------------+--------------+------+-----+---------+-------+
+| Field              | Type         | Null | Key | Default | Extra |
++--------------------+--------------+------+-----+---------+-------+
+| playerID           | decimal(7,0) | NO   | PRI | NULL    |       |
+| firstName          | char(15)     | YES  |     | NULL    |       |
+| lastName           | char(20)     | YES  |     | NULL    |       |
+| nationality        | char(3)      | YES  |     | NULL    |       |
+| birthCity          | char(30)     | YES  |     | NULL    |       |
+| primaryPosition    | char(15)     | YES  |     | NULL    |       |
+| birthDate          | datetime     | YES  |     | NULL    |       |
+| birthStateProvince | char(20)     | YES  |     | NULL    |       |
+| height             | char(7)      | YES  |     | NULL    |       |
+| heightInCM         | decimal(5,2) | YES  |     | NULL    |       |
+| weight             | decimal(5,2) | YES  |     | NULL    |       |
+| shootsCatches      | char(2)      | YES  |     | NULL    |       |
++--------------------+--------------+------+-----+---------+-------+
+
+describe GamePlaysPlayers;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| gameID     | decimal(10,0) | NO   | PRI | NULL    |       |
+| playNumber | int           | NO   | PRI | NULL    |       |
+| playerID   | decimal(7,0)  | NO   | PRI | NULL    |       |
+| playerRole | char(10)      | YES  |     | NULL    |       |
++------------+---------------+------+-----+---------+-------+

@@ -1,0 +1,15 @@
+• The average performance of the query in each of the four databases
+Plain, 9.64
+PK, 2.70
+FK, 8.99
+Index, 1.34
+
+• What caused the performance change between the Plain and PK database executions?
+Since the Plain database does not have primary keys, MYSQL would add a attributes to each table as the primary key which slows down the execution of the query and increses the size of the table and changes the order of the execution plan. The PK database is a lot faster because the joins are all done on primary keys.
+
+• What caused the performance change between the PK and FK database executions?
+In the FK database, it performs a index look up on GamePlaysPlayers using playerID instead of using the primary key. Since the GamePlaysPlayers has primary index (gameID, playNumber, playerID) and the table is sorted based on that, playerID would be a secondary index. Therefore, doing an index look up using playerID causes the FK database to run a lot slower compared to the PK database.
+
+• What indexes you added, why you chose those indexes, and how they changed the execution plan and improved the query performance?
+Index is added on GamePlaysPlayers.playerRole
+This index is chosen because the outer query is filtering on this column. Adding an index on this column makes filtering on the GamePlaysPlayers using PlayerRole a covered query. Only the playerRole column needs to be indexed becuase the join is on playerID which is part of the primary key. The execution plan now do a index lookup on GamePlaysPlayers using playerRole_idx instead of playerID. And the type is ref istead of All meaning that it is not a full table scan anymore but a check on the rows with matching index instead.

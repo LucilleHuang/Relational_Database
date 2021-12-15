@@ -1,0 +1,646 @@
+mysql> help contents
+You asked for help about help category: "Contents"
+For more information, type 'help <item>', where <item> is one of the following
+categories:
+   Account Management
+   Administration
+   Components
+   Compound Statements
+   Contents
+   Data Definition
+   Data Manipulation
+   Data Types
+   Functions
+   Geographic Features
+   Help Metadata
+   Language Structure
+   Plugins
+   Storage Engines
+   Table Maintenance
+   Transactions
+   User-Defined Functions
+   Utility
+
+mysql> help
+
+For information about MySQL products and services, visit:
+   http://www.mysql.com/
+For developer information, including the MySQL Reference Manual, visit:
+   http://dev.mysql.com/
+To buy MySQL Enterprise support, training, or other products, visit:
+   https://shop.mysql.com/
+
+List of all MySQL commands:
+Note that all text commands must be first on line and end with ';'
+?         (\?) Synonym for `help'.
+clear     (\c) Clear the current input statement.
+connect   (\r) Reconnect to the server. Optional arguments are db and host.
+delimiter (\d) Set statement delimiter.
+edit      (\e) Edit command with $EDITOR.
+ego       (\G) Send command to mysql server, display result vertically.
+exit      (\q) Exit mysql. Same as quit.
+go        (\g) Send command to mysql server.
+help      (\h) Display this help.
+nopager   (\n) Disable pager, print to stdout.
+notee     (\t) Don't write into outfile.
+pager     (\P) Set PAGER [to_pager]. Print the query results via PAGER.
+print     (\p) Print current command.
+prompt    (\R) Change your mysql prompt.
+quit      (\q) Quit mysql.
+rehash    (\#) Rebuild completion hash.
+source    (\.) Execute an SQL script file. Takes a file name as an argument.
+status    (\s) Get status information from the server.
+system    (\!) Execute a system shell command.
+tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+use       (\u) Use another database. Takes database name as argument.
+charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+warnings  (\W) Show warnings after every statement.
+nowarning (\w) Don't show warnings after every statement.
+resetconnection(\x) Clean session context.
+query_attributes Sets string parameters (name1 value1 name2 value2 ...) for the next query to pick up.
+
+For server side help, type 'help contents'
+
+mysql> help version
+Name: 'VERSION'
+Description:
+Syntax:
+VERSION()
+
+Returns a string that indicates the MySQL server version. The string
+uses the utf8 character set. The value might have a suffix in addition
+to the version number. See the description of the version system
+variable in
+https://dev.mysql.com/doc/refman/8.0/en/server-system-variables.html.
+
+URL: https://dev.mysql.com/doc/refman/8.0/en/information-functions.html
+
+Examples:
+mysql> SELECT VERSION();
+        -> '8.0.22-standard'
+
+mysql> select version();
++-----------+
+| version() |
++-----------+
+| 8.0.21    |
++-----------+
+1 row in set (0.00 sec)
+
+mysql> help database
+Name: 'DATABASE'
+Description:
+Syntax:
+DATABASE()
+
+Returns the default (current) database name as a string in the utf8
+character set. If there is no default database, DATABASE() returns
+NULL. Within a stored routine, the default database is the database
+that the routine is associated with, which is not necessarily the same
+as the database that is the default in the calling context.
+
+URL: https://dev.mysql.com/doc/refman/8.0/en/information-functions.html
+
+Examples:
+mysql> SELECT DATABASE();
+        -> 'test'
+
+mysql> SELECT DATABASE();
++------------+
+| DATABASE() |
++------------+
+| NULL       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> help contents
+You asked for help about help category: "Contents"
+For more information, type 'help <item>', where <item> is one of the following
+categories:
+   Account Management
+   Administration
+   Components
+   Compound Statements
+   Contents
+   Data Definition
+   Data Manipulation
+   Data Types
+   Functions
+   Geographic Features
+   Help Metadata
+   Language Structure
+   Plugins
+   Storage Engines
+   Table Maintenance
+   Transactions
+   User-Defined Functions
+   Utility
+
+mysql> help account management
+You asked for help about help category: "Account Management"
+For more information, type 'help <item>', where <item> is one of the following
+topics:
+   ALTER RESOURCE GROUP
+   ALTER USER
+   CREATE RESOURCE GROUP
+   CREATE ROLE
+   CREATE USER
+   DROP RESOURCE GROUP
+   DROP ROLE
+   DROP USER
+   GRANT
+   RENAME USER
+   REVOKE
+   SET DEFAULT ROLE
+   SET PASSWORD
+   SET RESOURCE GROUP
+   SET ROLE
+
+mysql> help storage engines
+Name: 'Storage Engines'
+Description:
+MERGEExamples:
+N
+mysql> status
+--------------
+
+Connection id:		3691
+Current database:	
+Current user:		j349huan@ecetesla1.uwaterloo.ca
+SSL:			Cipher in use is ECDHE-RSA-AES128-GCM-SHA256
+Current pager:		stdout
+Using outfile:		'cliSession.txt'
+Using delimiter:	;
+Server version:		8.0.21 MySQL Community Server - GPL
+Protocol version:	10
+Connection:		marmoset02.shoshin.uwaterloo.ca via TCP/IP
+Server characterset:	utf8mb4
+Db     characterset:	utf8mb4
+Client characterset:	utf8mb4
+Conn.  characterset:	utf8mb4
+TCP port:		3306
+Binary data as:		Hexadecimal
+Uptime:			66 days 14 hours 9 min 53 sec
+
+Threads: 9  Questions: 126574  Slow queries: 99  Opens: 10759  Flush tables: 3  Open tables: 1994  Queries per second avg: 0.021
+--------------
+
+mysql> help show database
+
+Nothing found
+Please try to run 'help contents' for a list of all accessible topics
+
+mysql> help show databases
+Name: 'SHOW DATABASES'
+Description:
+Syntax:
+SHOW {DATABASES | SCHEMAS}
+    [LIKE 'pattern' | WHERE expr]
+
+SHOW DATABASES lists the databases on the MySQL server host. SHOW
+SCHEMAS is a synonym for SHOW DATABASES. The LIKE clause, if present,
+indicates which database names to match. The WHERE clause can be given
+to select rows using more general conditions, as discussed in
+https://dev.mysql.com/doc/refman/8.0/en/extended-show.html.
+
+You see only those databases for which you have some kind of privilege,
+unless you have the global SHOW DATABASES privilege. You can also get
+this list using the mysqlshow command.
+
+If the server was started with the --skip-show-database option, you
+cannot use this statement at all unless you have the SHOW DATABASES
+privilege.
+
+MySQL implements databases as directories in the data directory, so
+this statement simply lists directories in that location. However, the
+output may include names of directories that do not correspond to
+actual databases.
+
+Database information is also available from the INFORMATION_SCHEMA
+SCHEMATA table. See
+https://dev.mysql.com/doc/refman/8.0/en/schemata-table.html.
+
+*Caution*:
+
+Because any static global privilege is considered a privilege for all
+databases, any static global privilege enables a user to see all
+database names with SHOW DATABASES or by examining the SCHEMATA table
+of INFORMATION_SCHEMA, except databases that have been restricted at
+the database level by partial revokes.
+
+URL: https://dev.mysql.com/doc/refman/8.0/en/show-databases.html
+
+
+mysql> help show databases
+Name: 'SHOW DATABASES'
+Description:
+Syntax:
+SHOW {DATABASES | SCHEMAS}
+    [LIKE 'pattern' | WHERE expr]
+
+SHOW DATABASES lists the databases on the MySQL server host. SHOW
+SCHEMAS is a synonym for SHOW DATABASES. The LIKE clause, if present,
+indicates which database names to match. The WHERE clause can be given
+to select rows using more general conditions, as discussed in
+https://dev.mysql.com/doc/refman/8.0/en/extended-show.html.
+
+You see only those databases for which you have some kind of privilege,
+unless you have the global SHOW DATABASES privilege. You can also get
+this list using the mysqlshow command.
+
+If the server was started with the --skip-show-database option, you
+cannot use this statement at all unless you have the SHOW DATABASES
+privilege.
+
+MySQL implements databases as directories in the data directory, so
+this statement simply lists directories in that location. However, the
+output may include names of directories that do not correspond to
+actual databases.
+
+Database information is also available from the INFORMATION_SCHEMA
+SCHEMATA table. See
+https://dev.mysql.com/doc/refman/8.0/en/schemata-table.html.
+
+*Caution*:
+
+Because any static global privilege is considered a privilege for all
+databases, any static global privilege enables a user to see all
+database names with SHOW DATABASES or by examining the SCHEMATA table
+of INFORMATION_SCHEMA, except databases that have been restricted at
+the database level by partial revokes.
+
+URL: https://dev.mysql.com/doc/refman/8.0/en/show-databases.html
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Loyal              |
+| db356_j349huan     |
+| information_schema |
++--------------------+
+3 rows in set (0.05 sec)
+
+mysql> select count(show databases);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'show databases)' at line 1
+mysql> show databases count;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'count' at line 1
+mysql> show contents
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'contents' at line 1
+mysql> help contents;
+You asked for help about help category: "Contents"
+For more information, type 'help <item>', where <item> is one of the following
+categories:
+   Account Management
+   Administration
+   Components
+   Compound Statements
+   Contents
+   Data Definition
+   Data Manipulation
+   Data Types
+   Functions
+   Geographic Features
+   Help Metadata
+   Language Structure
+   Plugins
+   Storage Engines
+   Table Maintenance
+   Transactions
+   User-Defined Functions
+   Utility
+
+mysql> notee
+mysql> help connect 
+
+Nothing found
+Please try to run 'help contents' for a list of all accessible topics
+
+mysql> help contents
+You asked for help about help category: "Contents"
+For more information, type 'help <item>', where <item> is one of the following
+categories:
+   Account Management
+   Administration
+   Components
+   Compound Statements
+   Contents
+   Data Definition
+   Data Manipulation
+   Data Types
+   Functions
+   Geographic Features
+   Help Metadata
+   Language Structure
+   Plugins
+   Storage Engines
+   Table Maintenance
+   Transactions
+   User-Defined Functions
+   Utility
+
+mysql> help
+
+For information about MySQL products and services, visit:
+   http://www.mysql.com/
+For developer information, including the MySQL Reference Manual, visit:
+   http://dev.mysql.com/
+To buy MySQL Enterprise support, training, or other products, visit:
+   https://shop.mysql.com/
+
+List of all MySQL commands:
+Note that all text commands must be first on line and end with ';'
+?         (\?) Synonym for `help'.
+clear     (\c) Clear the current input statement.
+connect   (\r) Reconnect to the server. Optional arguments are db and host.
+delimiter (\d) Set statement delimiter.
+edit      (\e) Edit command with $EDITOR.
+ego       (\G) Send command to mysql server, display result vertically.
+exit      (\q) Exit mysql. Same as quit.
+go        (\g) Send command to mysql server.
+help      (\h) Display this help.
+nopager   (\n) Disable pager, print to stdout.
+notee     (\t) Don't write into outfile.
+pager     (\P) Set PAGER [to_pager]. Print the query results via PAGER.
+print     (\p) Print current command.
+prompt    (\R) Change your mysql prompt.
+quit      (\q) Quit mysql.
+rehash    (\#) Rebuild completion hash.
+source    (\.) Execute an SQL script file. Takes a file name as an argument.
+status    (\s) Get status information from the server.
+system    (\!) Execute a system shell command.
+tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+use       (\u) Use another database. Takes database name as argument.
+charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+warnings  (\W) Show warnings after every statement.
+nowarning (\w) Don't show warnings after every statement.
+resetconnection(\x) Clean session context.
+query_attributes Sets string parameters (name1 value1 name2 value2 ...) for the next query to pick up.
+
+For server side help, type 'help contents'
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| Loyal              |
+| db356_j349huan     |
+| information_schema |
++--------------------+
+3 rows in set (0.04 sec)
+
+mysql> use Loyal
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> connect Loyal
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Connection id:    4131
+Current database: Loyal
+
+mysql> show tables
+    -> ;
++-----------------+
+| Tables_in_Loyal |
++-----------------+
+| Customer        |
+| Location        |
+| Product         |
+| buys            |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> help attributes
+
+Nothing found
+Please try to run 'help contents' for a list of all accessible topics
+
+mysql> help show table status
+Name: 'SHOW TABLE STATUS'
+Description:
+Syntax:
+SHOW TABLE STATUS
+    [{FROM | IN} db_name]
+    [LIKE 'pattern' | WHERE expr]
+
+SHOW TABLE STATUS works likes SHOW TABLES, but provides a lot of
+information about each non-TEMPORARY table. You can also get this list
+using the mysqlshow --status db_name command. The LIKE clause, if
+present, indicates which table names to match. The WHERE clause can be
+given to select rows using more general conditions, as discussed in
+https://dev.mysql.com/doc/refman/8.0/en/extended-show.html.
+
+URL: https://dev.mysql.com/doc/refman/8.0/en/show-table-status.html
+
+
+mysql> show table status
+    -> ;
++----------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+-------------+------------+--------------------+----------+----------------+---------+
+| Name     | Engine | Version | Row_format | Rows | Avg_row_length | Data_length | Max_data_length | Index_length | Data_free | Auto_increment | Create_time         | Update_time | Check_time | Collation          | Checksum | Create_options | Comment |
++----------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+-------------+------------+--------------------+----------+----------------+---------+
+| Customer | InnoDB |      10 | Dynamic    |    5 |           3276 |       16384 |               0 |            0 |         0 |           NULL | 2021-01-11 14:19:57 | NULL        | NULL       | utf8mb4_0900_ai_ci |     NULL |                |         |
+| Location | InnoDB |      10 | Dynamic    |    3 |           5461 |       16384 |               0 |            0 |         0 |           NULL | 2021-01-11 14:19:58 | NULL        | NULL       | utf8mb4_0900_ai_ci |     NULL |                |         |
+| Product  | InnoDB |      10 | Dynamic    |    5 |           3276 |       16384 |               0 |            0 |         0 |           NULL | 2021-01-11 14:19:57 | NULL        | NULL       | utf8mb4_0900_ai_ci |     NULL |                |         |
+| buys     | InnoDB |      10 | Dynamic    |    5 |           3276 |       16384 |               0 |        32768 |         0 |           NULL | 2021-01-11 14:19:58 | NULL        | NULL       | utf8mb4_0900_ai_ci |     NULL |                |         |
++----------+--------+---------+------------+------+----------------+-------------+-----------------+--------------+-----------+----------------+---------------------+-------------+------------+--------------------+----------+----------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> show tables
+    -> ;
++-----------------+
+| Tables_in_Loyal |
++-----------------+
+| Customer        |
+| Location        |
+| Product         |
+| buys            |
++-----------------+
+4 rows in set (0.00 sec)
+
+mysql> show columns from Customer
+    -> ;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| CustomerID | int           | NO   | PRI | -1      |       |
+| Name       | char(20)      | NO   |     | NULL    |       |
+| Address    | varchar(50)   | NO   |     | NULL    |       |
+| Points     | decimal(10,0) | NO   |     | -1      |       |
++------------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> show columns from Loyal.Customer
+    -> ;
++------------+---------------+------+-----+---------+-------+
+| Field      | Type          | Null | Key | Default | Extra |
++------------+---------------+------+-----+---------+-------+
+| CustomerID | int           | NO   | PRI | -1      |       |
+| Name       | char(20)      | NO   |     | NULL    |       |
+| Address    | varchar(50)   | NO   |     | NULL    |       |
+| Points     | decimal(10,0) | NO   |     | -1      |       |
++------------+---------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> show columns from Loyal.Location
+    -> ;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| LocationID | int         | NO   | PRI | NULL    |       |
+| Address    | varchar(50) | NO   |     | NULL    |       |
+| terminalID | int         | YES  |     | -1      |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> show columns from Loyal.Product;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| ProductID   | int          | NO   | PRI | -1      |       |
+| Name        | varchar(100) | NO   |     | NULL    |       |
+| Category    | char(15)     | NO   |     | NULL    |       |
+| SubCategory | char(15)     | NO   |     | NULL    |       |
+| Cost        | decimal(7,2) | NO   |     | -1.00   |       |
++-------------+--------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> show columns from Loyal.buys;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| CustomerID | int          | YES  | MUL | NULL    |       |
+| ProductID  | int          | YES  | MUL | NULL    |       |
+| LocationID | int          | NO   | PRI | NULL    |       |
+| date       | date         | NO   | PRI | NULL    |       |
+| time       | time         | NO   | PRI | NULL    |       |
+| qty        | int          | NO   |     | 0       |       |
+| totalPaid  | decimal(7,2) | NO   |     | -1.00   |       |
++------------+--------------+------+-----+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> 
+mysql> SELECT * from Loyal.Product
+    -> Where Cost>150 and Cost<450;
++-----------+--------+-------------+-------------+--------+
+| ProductID | Name   | Category    | SubCategory | Cost   |
++-----------+--------+-------------+-------------+--------+
+|         1 | iPhone | electronics | smartphones | 300.00 |
+|         3 | jPhone | electronics | smartphones | 400.00 |
++-----------+--------+-------------+-------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * from Loyal.Product;
++-----------+-----------+-------------+--------------+--------+
+| ProductID | Name      | Category    | SubCategory  | Cost   |
++-----------+-----------+-------------+--------------+--------+
+|         1 | iPhone    | electronics | smartphones  | 300.00 |
+|         3 | jPhone    | electronics | smartphones  | 400.00 |
+|         4 | kPhone    | electronics | smartphones  | 500.00 |
+|         5 | flipPhone | electronics | featurephone | 100.00 |
+|         6 | notAPhone | toys        | age 3-8      |  50.00 |
++-----------+-----------+-------------+--------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT count(*) from Loyal.Product Where Cost>150 and Cost<450;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> mysql> status
+--------------
+
+Connection id:		4151
+Current database:	
+Current user:		j349huan@ecetesla1.uwaterloo.ca
+SSL:			Cipher in use is ECDHE-RSA-AES128-GCM-SHA256
+Current pager:		stdout
+Using outfile:		'cliSession.txt'
+Using delimiter:	;
+Server version:		8.0.21 MySQL Community Server - GPL
+Protocol version:	10
+Connection:		marmoset02.shoshin.uwaterloo.ca via TCP/IP
+Server characterset:	utf8mb4
+Db     characterset:	utf8mb4
+Client characterset:	utf8mb4
+Conn.  characterset:	utf8mb4
+TCP port:		3306
+Binary data as:		Hexadecimal
+Uptime:			66 days 22 hours 58 min 15 sec
+
+Threads: 15  Questions: 129518  Slow queries: 99  Opens: 10823  Flush tables: 3  Open tables: 2026  Queries per second avg: 0.022
+--------------
+
+mysql> help database()
+
+Nothing found
+Please try to run 'help contents' for a list of all accessible topics
+
+mysql> db_name()
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'db_name()' at line 1
+mysql> select database();
++------------+
+| database() |
++------------+
+| NULL       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select db_name();
+ERROR 1046 (3D000): No database selected
+mysql> connect
+Connection id:    4154
+Current database: *** NONE ***
+
+mysql> SELECT count(*) from Loyal.Product Where Cost>150 and Cost<450;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> connect
+Connection id:    4157
+Current database: *** NONE ***
+
+mysql> SELECT count(*) from Product Where Cost>150 and Cost<450;
+ERROR 1046 (3D000): No database selected
+mysql> connect Loyal
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Connection id:    4158
+Current database: Loyal
+
+mysql> SELECT count(*) from Product Where Cost>150 and Cost<450;
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> notee

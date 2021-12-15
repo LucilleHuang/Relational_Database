@@ -1,0 +1,86 @@
+Plain
+
+-> Filter: (GamePlays.`dateTime` = (select #2))  (cost=938455095893.81 rows=9384149581) (actual time=10303.901..10696.126 rows=1 loops=1)
+    -> Inner hash join (GamePlays.playNumber = GamePlaysPlayers.playNumber), (GamePlays.gameID = GamePlaysPlayers.gameID)  (cost=938455095893.81 rows=9384149581) (actual time=4003.920..8136.310 rows=133281 loops=1)
+        -> Table scan on GamePlays  (cost=0.07 rows=4052881) (actual time=0.017..2310.910 rows=4216630 loops=1)
+        -> Hash
+            -> Inner hash join (GamePlaysPlayers.playerID = PlayerInfo.playerID)  (cost=23702849.32 rows=2315427) (actual time=8.195..3890.006 rows=133281 loops=1)
+                -> Filter: (GamePlaysPlayers.playerRole = 'Scorer')  (cost=144.36 rows=60313) (actual time=0.027..3808.737 rows=133281 loops=1)
+                    -> Table scan on GamePlaysPlayers  (cost=144.36 rows=6031327) (actual time=0.014..3137.334 rows=6361947 loops=1)
+                -> Hash
+                    -> Table scan on PlayerInfo  (cost=408.15 rows=3839) (actual time=0.033..4.440 rows=3925 loops=1)
+    -> Select #2 (subquery in condition; run only once)
+        -> Aggregate: min(GamePlays.`dateTime`)  (actual time=2515.957..2515.957 rows=1 loops=1)
+            -> Inner hash join (GamePlays.gameID = Game.gameID), (GamePlays.teamIDfor = TeamInfo.teamID)  (cost=690624.84 rows=3140) (actual time=2282.575..2515.913 rows=253 loops=1)
+                -> Filter: (GamePlays.playType = 'Goal')  (cost=48.28 rows=4053) (actual time=0.012..2456.925 rows=133281 loops=1)
+                    -> Table scan on GamePlays  (cost=48.28 rows=4052881) (actual time=0.008..2075.731 rows=4216630 loops=1)
+                -> Hash
+                    -> Inner hash join (no condition)  (cost=2979.47 rows=775) (actual time=14.187..15.193 rows=1215 loops=1)
+                        -> Filter: (Game.season = 20192020)  (cost=738.17 rows=2348) (actual time=14.128..14.938 rows=1215 loops=1)
+                            -> Table scan on Game  (cost=738.17 rows=23477) (actual time=0.007..12.431 rows=23735 loops=1)
+                        -> Hash
+                            -> Filter: (TeamInfo.`name` = 'Maple Leafs')  (cost=3.55 rows=3) (actual time=0.038..0.040 rows=1 loops=1)
+                                -> Table scan on TeamInfo  (cost=3.55 rows=33) (actual time=0.031..0.035 rows=33 loops=1)
+								
+PK
+
+-> Nested loop inner join  (cost=608424.47 rows=72441) (actual time=2485.728..2709.997 rows=1 loops=1)
+    -> Nested loop inner join  (cost=568129.02 rows=72441) (actual time=2485.720..2709.989 rows=1 loops=1)
+        -> Filter: (GamePlays.`dateTime` = (select #2))  (cost=398150.20 rows=390150) (actual time=2485.696..2709.962 rows=1 loops=1)
+            -> Table scan on GamePlays  (cost=398150.20 rows=3901502) (actual time=0.080..1289.526 rows=4216630 loops=1)
+            -> Select #2 (subquery in condition; run only once)
+                -> Aggregate: min(GamePlays.`dateTime`)  (actual time=260.676..260.676 rows=1 loops=1)
+                    -> Inner hash join (TeamInfo.teamID = GamePlays.teamIDfor)  (cost=24930.53 rows=600) (actual time=260.592..260.631 rows=253 loops=1)
+                        -> Filter: (TeamInfo.`name` = 'Maple Leafs')  (cost=0.00 rows=1) (actual time=0.023..0.030 rows=1 loops=1)
+                            -> Table scan on TeamInfo  (cost=0.00 rows=33) (actual time=0.019..0.024 rows=33 loops=1)
+                        -> Hash
+                            -> Nested loop inner join  (cost=22945.85 rows=19814) (actual time=16.840..257.794 rows=7361 loops=1)
+                                -> Filter: (Game.season = 20192020)  (cost=2434.55 rows=2346) (actual time=16.764..17.504 rows=1215 loops=1)
+                                    -> Table scan on Game  (cost=2434.55 rows=23463) (actual time=0.070..13.090 rows=23735 loops=1)
+                                -> Filter: (GamePlays.playType = 'Goal')  (cost=0.30 rows=8) (actual time=0.054..0.197 rows=6 loops=1215)
+                                    -> Index lookup on GamePlays using PRIMARY (gameID=Game.gameID)  (cost=0.30 rows=84) (actual time=0.028..0.164 rows=322 loops=1215)
+        -> Filter: (GamePlaysPlayers.playerRole = 'Scorer')  (cost=0.25 rows=0) (actual time=0.023..0.025 rows=1 loops=1)
+            -> Index lookup on GamePlaysPlayers using PRIMARY (gameID=GamePlays.gameID, playNumber=GamePlays.playNumber)  (cost=0.25 rows=2) (actual time=0.019..0.021 rows=4 loops=1)
+    -> Single-row index lookup on PlayerInfo using PRIMARY (playerID=GamePlaysPlayers.playerID)  (cost=0.46 rows=1) (actual time=0.007..0.007 rows=1 loops=1)
+
+FK
+
+-> Nested loop inner join  (cost=594047.92 rows=15418) (actual time=8622.839..9286.965 rows=1 loops=1)
+    -> Nested loop inner join  (cost=540085.67 rows=154178) (actual time=0.162..8601.628 rows=133281 loops=1)
+        -> Table scan on PlayerInfo  (cost=463.15 rows=4389) (actual time=0.053..2.204 rows=3925 loops=1)
+        -> Filter: (GamePlaysPlayers.playerRole = 'Scorer')  (cost=87.82 rows=35) (actual time=0.379..2.189 rows=34 loops=3925)
+            -> Index lookup on GamePlaysPlayers using playerID (playerID=PlayerInfo.playerID)  (cost=87.82 rows=351) (actual time=0.088..2.039 rows=1621 loops=3925)
+    -> Filter: (GamePlays.`dateTime` = (select #2))  (cost=0.25 rows=0) (actual time=0.005..0.005 rows=0 loops=133281)
+        -> Single-row index lookup on GamePlays using PRIMARY (gameID=GamePlaysPlayers.gameID, playNumber=GamePlaysPlayers.playNumber)  (cost=0.25 rows=1) (actual time=0.002..0.002 rows=1 loops=133281)
+        -> Select #2 (subquery in condition; run only once)
+            -> Aggregate: min(GamePlays.`dateTime`)  (actual time=321.874..321.874 rows=1 loops=1)
+                -> Inner hash join (TeamInfo.teamID = GamePlays.teamIDfor)  (cost=23788.85 rows=576) (actual time=321.818..321.848 rows=253 loops=1)
+                    -> Filter: (TeamInfo.`name` = 'Maple Leafs')  (cost=0.00 rows=1) (actual time=0.023..0.028 rows=1 loops=1)
+                        -> Table scan on TeamInfo  (cost=0.00 rows=33) (actual time=0.019..0.023 rows=33 loops=1)
+                    -> Hash
+                        -> Nested loop inner join  (cost=21886.05 rows=18996) (actual time=10.939..318.033 rows=7361 loops=1)
+                            -> Filter: (Game.season = 20192020)  (cost=2242.65 rows=2106) (actual time=10.890..12.039 rows=1215 loops=1)
+                                -> Table scan on Game  (cost=2242.65 rows=21064) (actual time=0.034..9.069 rows=23735 loops=1)
+                            -> Filter: (GamePlays.playType = 'Goal')  (cost=0.31 rows=9) (actual time=0.070..0.251 rows=6 loops=1215)
+                                -> Index lookup on GamePlays using PRIMARY (gameID=Game.gameID)  (cost=0.31 rows=90) (actual time=0.039..0.212 rows=322 loops=1215)
+
+Index
+ -> Nested loop inner join  (cost=224939.73 rows=27888) (actual time=1350.061..1437.758 rows=1 loops=1)
+    -> Nested loop inner join  (cost=127331.73 rows=278880) (actual time=0.326..766.039 rows=133281 loops=1)
+        -> Filter: (GamePlaysPlayers.playerRole = 'Scorer')  (cost=29723.73 rows=278880) (actual time=0.311..562.807 rows=133281 loops=1)
+            -> Index lookup on GamePlaysPlayers using playerRole_idx (playerRole='Scorer')  (cost=29723.73 rows=278880) (actual time=0.309..531.107 rows=133281 loops=1)
+        -> Single-row index lookup on PlayerInfo using PRIMARY (playerID=GamePlaysPlayers.playerID)  (cost=0.25 rows=1) (actual time=0.001..0.001 rows=1 loops=133281)
+    -> Filter: (GamePlays.`dateTime` = (select #2))  (cost=0.25 rows=0) (actual time=0.005..0.005 rows=0 loops=133281)
+        -> Single-row index lookup on GamePlays using PRIMARY (gameID=GamePlaysPlayers.gameID, playNumber=GamePlaysPlayers.playNumber)  (cost=0.25 rows=1) (actual time=0.003..0.003 rows=1 loops=133281)
+        -> Select #2 (subquery in condition; run only once)
+            -> Aggregate: min(GamePlays.`dateTime`)  (actual time=236.944..236.944 rows=1 loops=1)
+                -> Nested loop inner join  (cost=3314.05 rows=5) (actual time=16.507..236.861 rows=253 loops=1)
+                    -> Inner hash join (no condition)  (cost=2438.10 rows=61) (actual time=16.322..17.342 rows=1215 loops=1)
+                        -> Filter: (Game.season = 20192020)  (cost=2434.55 rows=1201) (actual time=16.259..17.013 rows=1215 loops=1)
+                            -> Table scan on Game  (cost=2434.55 rows=23463) (actual time=0.041..12.453 rows=23735 loops=1)
+                        -> Hash
+                            -> Filter: (TeamInfo.`name` = 'Maple Leafs')  (cost=3.55 rows=1) (actual time=0.035..0.047 rows=1 loops=1)
+                                -> Table scan on TeamInfo  (cost=3.55 rows=33) (actual time=0.028..0.037 rows=33 loops=1)
+                    -> Filter: ((GamePlays.teamIDfor = TeamInfo.teamID) and (GamePlays.playType = 'Goal'))  (cost=0.30 rows=0) (actual time=0.173..0.180 rows=0 loops=1215)
+                        -> Index lookup on GamePlays using PRIMARY (gameID=Game.gameID)  (cost=0.30 rows=84) (actual time=0.031..0.154 rows=322 loops=1215)
+
